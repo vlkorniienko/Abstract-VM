@@ -42,18 +42,14 @@ void readFromFile(std::string argv)
 
 int		main(int argc, char **argv)
 {
-	if (argc == 2)
-	{
+	if (argc == 2) {
 		readFromFile(argv[1]);
-		return (0);
 	}
 	else if (argc == 1) {
 		readFromStdin();
-		return (0);
 	}
 	else {
 		std::cout << "Too many arguments" << std::endl;
-		return (0);
 	}
 	return (0);
 }
