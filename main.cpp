@@ -38,6 +38,9 @@ void readFromFile(std::string argv)
 		}
 	}
 	argument.close();
+	for (int i = 0; i < lines.size(); ++i) {
+		std::cout << lines[i] << std::endl;
+	}
 }
 
 int		main(int argc, char **argv)

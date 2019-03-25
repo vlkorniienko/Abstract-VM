@@ -6,9 +6,9 @@ class Lexer {
 
 public:
 	Lexer();
-	bool Lexer::RegularRes(std::vector<std::string> lines) {};
+	bool RegularResult(std::vector<std::string> lines);
 	~Lexer();
-
+	
 private:
 	bool result;
 };

@@ -1,4 +1,5 @@
 #include "Lexer.hpp"
+
 typedef enum {
     push,
     pop,
@@ -17,6 +18,7 @@ Lexer::Lexer() {
     this->result = false;
 }
 
-bool Lexer::RegularRes(std::vector<std::string> lines) {
-
+bool Lexer::RegularResult(std::vector<std::string> line) {
+    
+    return this->result;
 }
