@@ -1,6 +1,6 @@
-#ifndef LEXER_HPP
-# define LEXER_HPP
+#pragma once
 #include <vector>
+#include <string>
 
 class Lexer {
 
@@ -12,5 +12,3 @@ public:
 private:
 	bool result;
 };
-
-#endif
