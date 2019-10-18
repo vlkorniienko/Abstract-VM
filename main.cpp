@@ -2,14 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
-
-typedef enum {
-	Int8,
-	Int16,
-	Int32,
-	Float,
-	Double
-} operand;
+#include "Lexer.hpp"
 
 void	readFromStdin()
 {
@@ -28,6 +21,7 @@ void	readFromStdin()
 
 void readFromFile(std::string argv)
 {
+	Lexer Lexer;
 	std::ifstream argument(argv);
 	std::vector<std::string> lines;
 
@@ -41,6 +35,7 @@ void readFromFile(std::string argv)
 	for (int i = 0; i < lines.size(); ++i) {
 		std::cout << lines[i] << std::endl;
 	}
+	Lexer.RegularResult(lines);
 }
 
 int		main(int argc, char **argv)
