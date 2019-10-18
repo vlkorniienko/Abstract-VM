@@ -6,7 +6,7 @@ class Lexer {
 
 public:
 	Lexer();
-	bool RegularResult(std::vector<std::string> lines);
+	bool RegularResult(std::vector<std::string> const & lines) const;
 	~Lexer();
 	
 private:
