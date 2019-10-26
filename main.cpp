@@ -1,53 +1,24 @@
-#include <iostream>
-#include <fstream>
 #include <vector>
 #include <string>
 #include "Lexer.hpp"
-
-void	readFromStdin()
-{
-	std::vector<std::string> lines;
-
-	for (std::string line; std::getline(std::cin, line);) {
-		if (line == ";;") {
-			break ;
-		}
-		lines.push_back(line.c_str());
-	}
-	// for (int i = 0; i < lines.size(); ++i) {
-	// 	std::cout << lines[i] << std::endl;
-	// }
-}
-
-void readFromFile(std::string argv)
-{
-	Lexer Lexer;
-	std::ifstream argument(argv);
-	std::vector<std::string> lines;
-
-	if (argument.is_open()) {
-		std::string line;
-		while (getline(argument, line)) {
-			lines.push_back(line.c_str());
-		}
-	}
-	argument.close();
-	// for (int i = 0; i < lines.size(); ++i) {
-	// 	std::cout << lines[i] << std::endl;
-	// }
-	Lexer.RegularResult(lines);
-}
+#include "Reader.hpp"
 
 int		main(int argc, char **argv)
 {
-	if (argc == 2) {
-		readFromFile(argv[1]);
-	}
-	else if (argc == 1) {
-		readFromStdin();
-	}
-	else {
-		std::cout << "Too many arguments" << std::endl;
+	Reader reader;
+	Lexer lexer;
+	std::vector<std::string> lines;
+
+	if (argc == 2)
+		reader.readFromFile(argv[1]);
+	else if (argc == 1)
+		reader.readFromStdin();
+	else
+		std::cout << "Error: too many arguments" << std::endl;
+
+	lines = reader.getCommands();
+	for (int i = 0; i < lines.size(); ++i) {
+		std::cout << lines[i] << std::endl;
 	}
 	return (0);
 }

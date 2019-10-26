@@ -7,10 +7,11 @@
 class Lexer {
 
 public:
-	Lexer();
-	bool RegularResult(std::vector<std::string> const & lines) const;
-	~Lexer();
+	Lexer() = default;
+	void RegularResult(const std::vector<std::string> & lines);
+	std::vector<std::string> getValue() const;
+	~Lexer() = default;
 	
 private:
-	bool result;
+	std::vector<std::string> value;
 };

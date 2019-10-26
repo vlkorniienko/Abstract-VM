@@ -1,13 +1,6 @@
 #include "Lexer.hpp"
 
-Lexer::Lexer():
-    result(false)
-{};
-
-Lexer::~Lexer() {}
-
-bool Lexer::RegularResult(std::vector<std::string> const & lines) const {
-    std::vector<std::string> newlines;
+void Lexer::RegularResult(const std::vector<std::string> & lines) {
 
     std::regex ex1("(^pop$)|(^pop\\s*;.*$)");
     std::regex ex2("(^dump$)|(^dump\\s*;.*$)");
@@ -27,12 +20,11 @@ bool Lexer::RegularResult(std::vector<std::string> const & lines) const {
         if (std::regex_match(lines[i], ex1) || std::regex_match(lines[i], ex2) || std::regex_match(lines[i], ex3) || std::regex_match(lines[i], ex4) || 
         std::regex_match(lines[i], ex5) || std::regex_match(lines[i], ex6) || std::regex_match(lines[i], ex7) || std::regex_match(lines[i], ex8) || 
         std::regex_match(lines[i], ex9)) {
-            newlines.push_back(lines[i]);
+            this->value.push_back(lines[i]);
         }
     }
     
-    for (int i = 0; i < newlines.size(); ++i) {
-		std::cout << newlines[i] << std::endl;
+    for (int i = 0; i < this->value.size(); ++i) {
+		std::cout << this->value[i] << std::endl;
 	}
-    return this->result;
 }

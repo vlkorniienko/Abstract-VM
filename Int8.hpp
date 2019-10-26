@@ -1,4 +1,5 @@
 #pragma once
+
 #include "IOperand.hpp"
 #include <string>
 
@@ -18,4 +19,5 @@ public:
 
 private:
     eOperandType operandType;
+	char value;
 };
