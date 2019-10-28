@@ -63,6 +63,10 @@
         "ios": "cpp",
         "locale": "cpp",
         "mutex": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "__errc": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "complex": "cpp"
     }
 }

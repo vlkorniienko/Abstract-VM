@@ -3,7 +3,7 @@
 ; -------------
 ; example.avm -
 ; -------------
-push int32(42)
+pushint34(42jj)
 push int32(33)
 add
 push float(44.55)

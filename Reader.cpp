@@ -1,8 +1,5 @@
 #include "Reader.hpp"
 
-Reader::Reader() {}
-Reader::~Reader() {}
-
 std::vector<std::string> Reader::getCommands() const { 
     return this->commands;
 }
