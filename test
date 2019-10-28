@@ -1,16 +1,15 @@
-
 ;
 ; -------------
 ; example.avm -
 ; -------------
-pushint34(42jj)
+push int34(42)
 push int32(33)
 add
 push float(44.55)
 mul
 push double(42.42)
 push int32(42)
-dump  
+dump
 pop    ;dfd 
 assert double(42.42)
 exit

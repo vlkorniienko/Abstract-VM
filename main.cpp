@@ -8,6 +8,7 @@ int		main(int argc, char **argv)
 	Reader reader;
 	Lexer lexer;
 	std::vector<std::string> lines;
+	std::vector<std::string> newlines;
 
 	if (argc == 2)
 		reader.readFromFile(argv[1]);
@@ -17,8 +18,7 @@ int		main(int argc, char **argv)
 		std::cout << "Error: too many arguments" << std::endl;
 
 	lines = reader.getCommands();
-	for (int i = 0; i < lines.size(); ++i) {
-		std::cout << lines[i] << std::endl;
-	}
+	lexer.RegularResult(lines);
+	
 	return (0);
 }

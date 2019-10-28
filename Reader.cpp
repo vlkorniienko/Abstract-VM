@@ -1,13 +1,13 @@
 #include "Reader.hpp"
 
 std::vector<std::string> Reader::getCommands() const { 
-    return this->commands;
+	return this->commands;
 }
 
 void Reader::readFromFile(const std::string argument1) {
-    std::ifstream arg(argument1);
+	std::ifstream arg(argument1);
 
-    if (arg.is_open()) {
+	if (arg.is_open()) {
 		std::string line;
 		while (getline(arg, line)) {
 			this->commands.push_back(line.c_str());
