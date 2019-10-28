@@ -67,6 +67,7 @@
         "__errc": "cpp",
         "__hash_table": "cpp",
         "__node_handle": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "cinttypes": "cpp"
     }
 }

@@ -5,15 +5,20 @@ std::vector<std::string> Reader::getCommands() const {
 }
 
 void Reader::readFromFile(const std::string argument1) {
-	std::ifstream arg(argument1);
+	std::ifstream arg;
+	arg.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-	if (arg.is_open()) {
+	try {
+		arg.open(argument1);
 		std::string line;
-		while (getline(arg, line)) {
+		while (arg.eof()) {
+			getline(arg, line);
 			this->commands.push_back(line.c_str());
 		}
+		arg.close();
+	} catch (std::ifstream::failure e) {
+    	std::cerr << "Exception opening/reading/closing file\n";
 	}
-	arg.close();
 }
 
 void Reader::readFromStdin() {

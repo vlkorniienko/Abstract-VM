@@ -24,5 +24,5 @@ public:
 
 	virtual std::string const & toString(void) const = 0; // String representation of the instance
 	
-	virtual ~IOperand( void ) {} 
+	virtual ~IOperand(void) {} 
 };
