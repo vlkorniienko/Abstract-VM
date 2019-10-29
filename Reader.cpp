@@ -11,7 +11,7 @@ void Reader::readFromFile(const std::string argument1) {
 	try {
 		arg.open(argument1);
 		std::string line;
-		while (arg.eof()) {
+		while (!arg.eof()) {
 			getline(arg, line);
 			this->commands.push_back(line.c_str());
 		}
