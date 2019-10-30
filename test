@@ -2,14 +2,19 @@
 ; -------------
 ; example.avm -
 ; -------------
-push int34(42)
-push int32(33)
+;push int34(42)
+push int32(33)    ;fdfd
+push int8(33)
 add
 push float(44.55)
 mul;sdsds
 push double(42.42)
-push int32(42)
+;push   int32(42)
 dump
-pop   ;;ds 
+pop   ds
+assert int32(42.42)
+assert int32(42) ;sdsd s
+assert int32(42);sdsd s
+assert float(44.55)
 assert double(42.42)
 exit

@@ -1,32 +1,49 @@
 #include "Lexer.hpp"
 
+Lexer::Lexer() { this->exit = false; }
+
 void Lexer::RegularResult(const std::vector<std::string> & lines) {
 
 	try {
-		std::regex ex1("(^pop$)|(^pop\\s*;.*$)");
-		std::regex ex2("(^dump$)|(^dump\\s*;.*$)");
-		std::regex ex3("(^add$)|(^add\\s*;.*$)");
-		std::regex ex4("(^sub$)|(^sub\\s*;.*$)");
-		std::regex ex5("(^mul$)|(^mul\\s*;.*$)");
-		std::regex ex6("(^div$)|(^div\\s*;.*$)");
-		std::regex ex7("(^mod$)|(^mod\\s*;.*$)");
-		std::regex ex8("(^print$)|(^print\\s*;.*$)");
-		std::regex ex9("(^exit$)|(^exit\\s*;.*$)");
-
-	//std::regex ex10("(^push\\s(int32)\\(-?([[:digit:]]+)\\)$)|(^push\\sint32\\(-?([[:digit:]]+)\\)\\s*;.*$\\)");
-	//std::regex ex11("(^assert\\s-?[[:digit:]]+$)|(^assert\\s-?[[:digit:]]+\\s*;.*$)");
-	//std::regex ex12("(^push\\s-?[[:digit:]]+\\.[[:digit:]]++$)|(^push\\s-?[[:digit:]]+\\.[[:digit:]]+\\s*;.*$)");
-	//std::regex ex13("(^assert\\s-?[[:digit:]]+\\.[[:digit:]]++$)|(^assert\\s-?[[:digit:]]+\\.[[:digit:]]+\\s*;.*$)");
+		// standart commands
+		std::regex pop_c("(^pop$)|(^pop\\s*;.*$)");
+		std::regex dump_c("(^dump$)|(^dump\\s*;.*$)");
+		std::regex add_c("(^add$)|(^add\\s*;.*$)");
+		std::regex sub_c("(^sub$)|(^sub\\s*;.*$)");
+		std::regex mul_c("(^mul$)|(^mul\\s*;.*$)");
+		std::regex div_c("(^div$)|(^div\\s*;.*$)");
+		std::regex mod_c("(^mod$)|(^mod\\s*;.*$)");
+		std::regex print_c("(^print$)|(^print\\s*;.*$)");
+		std::regex exit_c("(^exit$)|(^exit\\s*;.*$)");
+		// reg expressions for push command
+		std::regex push_dec("(^push\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)$)|(^push\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)\\s*;.*$)");
+		std::regex push_fl("(^push\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^push\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
+		std::regex push_db("(^push\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^push\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
+		// reg expressions for assert command
+		std::regex assert_dec("(^assert\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)$)|(^assert\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)\\s*;.*$)");
+		std::regex assert_fl("(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
+		std::regex assert_db("(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
 		for (int i = 0; i < lines.size(); i++)
 		{
-			if (lines[i].length() == 0)
+			if (lines[i].length() == 0 || lines[i] == ";")
 				continue;
-			if (lines[i].length() > 2 && lines[i].at(0) == ';' && lines[i].at(1) != ';')
+			else if (lines[i].length() > 2 && lines[i].at(0) == ';' && lines[i].at(1) != ';')
 				continue;
-			if (std::regex_match(lines[i], ex1) || std::regex_match(lines[i], ex2) || std::regex_match(lines[i], ex3) || std::regex_match(lines[i], ex4) || 
-			std::regex_match(lines[i], ex5) || std::regex_match(lines[i], ex6) || std::regex_match(lines[i], ex7) || std::regex_match(lines[i], ex8) || 
-			std::regex_match(lines[i], ex9)) {
+			else if (std::regex_match(lines[i], exit_c)) {
 				this->value.push_back(lines[i]);
+				this->exit = true;
+			}
+			else if (std::regex_match(lines[i], pop_c) || std::regex_match(lines[i], dump_c) || std::regex_match(lines[i], add_c) || std::regex_match(lines[i], sub_c) || 
+			std::regex_match(lines[i], mul_c) || std::regex_match(lines[i], div_c) || std::regex_match(lines[i], mod_c) || std::regex_match(lines[i], print_c) || 
+			std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db) ||
+			std::regex_match(lines[i], assert_fl) || std::regex_match(lines[i], assert_db)) {
+				this->value.push_back(lines[i]);
+			}
+			else {
+				std::cout << "-------------------" << std::endl;
+				std::cout <<"An instruction is unknown on line " << i + 1 << std::endl;
+				std::cout << lines[i] << std::endl;
+				std::cout << "-------------------" << std::endl;
 			}
 		}
 	} catch (std::regex_error& e) {
@@ -39,6 +56,3 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 		std::cout << this->value[i] << std::endl;
 	}
 }
-
-/*|| std::regex_match(lines[i], ex10) || std::regex_match(lines[i], ex11) || std::regex_match(lines[i], ex12) || 
-		std::regex_match(lines[i], ex13)*/

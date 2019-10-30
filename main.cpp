@@ -5,9 +5,8 @@
 
 int		main(int argc, char **argv)
 {
-	Reader reader;
-	Lexer lexer;
-	std::vector<std::string> lines;
+	Reader 	reader;
+	Lexer 	lexer;
 
 	if (argc == 2)
 		reader.readFromFile(argv[1]);
@@ -15,10 +14,9 @@ int		main(int argc, char **argv)
 		reader.readFromStdin();
 	else {
 		std::cout << "Usage error: too many arguments" << std::endl;
+		std::cout << "./avm [filename]" << std::endl;
 		return (-1);
 	}
-
-	//lines = reader.getCommands();
 	lexer.RegularResult(reader.getCommands());
 	
 	return (0);
