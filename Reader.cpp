@@ -16,7 +16,7 @@ void Reader::readFromFile(const std::string argument1) {
 			this->commands.push_back(line.c_str());
 		}
 		arg.close();
-	} catch (std::ifstream::failure e) {
+	} catch (const std::ifstream::failure& e) {
     	std::cerr << "Exception opening/reading/closing file\n";
 	}
 }

@@ -1,8 +1,9 @@
 #include "Lexer.hpp"
 
-Lexer::Lexer() { this->exit = false; }
+Lexer::Lexer() { this->exit_check = false; }
 
 void Lexer::RegularResult(const std::vector<std::string> & lines) {
+	std::stringstream errorMessage;
 
 	try {
 		// standart commands
@@ -23,7 +24,7 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 		std::regex assert_dec("(^assert\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)$)|(^assert\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)\\s*;.*$)");
 		std::regex assert_fl("(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
 		std::regex assert_db("(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
-		for (int i = 0; i < lines.size(); i++)
+		for (long unsigned int i = 0; i < lines.size(); i++)
 		{
 			if (lines[i].length() == 0 || lines[i] == ";")
 				continue;
@@ -31,28 +32,37 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 				continue;
 			else if (std::regex_match(lines[i], exit_c)) {
 				this->value.push_back(lines[i]);
-				this->exit = true;
+				this->exit_check = true;
 			}
 			else if (std::regex_match(lines[i], pop_c) || std::regex_match(lines[i], dump_c) || std::regex_match(lines[i], add_c) || std::regex_match(lines[i], sub_c) || 
-			std::regex_match(lines[i], mul_c) || std::regex_match(lines[i], div_c) || std::regex_match(lines[i], mod_c) || std::regex_match(lines[i], print_c) || 
-			std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db) ||
-			std::regex_match(lines[i], assert_fl) || std::regex_match(lines[i], assert_db)) {
-				this->value.push_back(lines[i]);
+				std::regex_match(lines[i], mul_c) || std::regex_match(lines[i], div_c) || std::regex_match(lines[i], mod_c) || std::regex_match(lines[i], print_c) || 
+				std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db) ||
+				std::regex_match(lines[i], assert_fl) || std::regex_match(lines[i], assert_db)) {
+					this->value.push_back(lines[i]);
 			}
 			else {
-				std::cout << "-------------------" << std::endl;
-				std::cout <<"An instruction is unknown on line " << i + 1 << std::endl;
-				std::cout << lines[i] << std::endl;
-				std::cout << "-------------------" << std::endl;
+				errorMessage << "An unknown instruction is on line" << i + 1 << " [" << lines[i] << "]\n" << "Machine continue working";
+				throw MyException(errorMessage.str());			
 			}
 		}
+	} catch (MyException& e) {
+		std::cout << e.getMessage() << std::endl;
 	} catch (std::regex_error& e) {
 		std::cout << "regex_error caught: " << e.what() << '\n';
 	} catch (std::exception& e) {
     	std::cout << e.what() << std::endl;
 	}
+
+	try {
+		if (this->exit_check == false) {
+			throw MyException("Error: there is no exit command[machine stop its work]");
+		}
+	} catch (MyException& e) {
+		std::cout << e.getMessage() << std::endl;
+		exit(-1);
+	}
 	
-	for (int i = 0; i < this->value.size(); ++i) {
+	for (long unsigned int i = 0; i < this->value.size(); ++i) {
 		std::cout << this->value[i] << std::endl;
 	}
 }

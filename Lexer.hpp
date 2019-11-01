@@ -1,8 +1,11 @@
 #pragma once
+
 #include <vector>
 #include <string>
 #include <regex>
 #include <iostream>
+#include <sstream>
+#include "MyException.hpp"
 
 class Lexer {
 
@@ -14,5 +17,5 @@ public:
 	
 private:
 	std::vector<std::string> value;
-	bool exit;
+	bool exit_check;
 };
