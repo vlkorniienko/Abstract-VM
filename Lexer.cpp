@@ -41,18 +41,14 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 					this->value.push_back(lines[i]);
 			}
 			else {
-				errorMessage << "An unknown instruction is on line" << i + 1 << " [" << lines[i] << "]\n" << "Machine continue working";
-				throw MyException(errorMessage.str());			
+				std::cout << "An unknown instruction is on line" << i + 1 << " [" << lines[i] << "]\n" << "Machine continue working" << std::endl;	
 			}
 		}
-	} catch (MyException& e) {
-		std::cout << e.getMessage() << std::endl;
 	} catch (std::regex_error& e) {
 		std::cout << "regex_error caught: " << e.what() << '\n';
 	} catch (std::exception& e) {
     	std::cout << e.what() << std::endl;
 	}
-
 	try {
 		if (this->exit_check == false) {
 			throw MyException("Error: there is no exit command[machine stop its work]");
@@ -60,9 +56,5 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 	} catch (MyException& e) {
 		std::cout << e.getMessage() << std::endl;
 		exit(-1);
-	}
-	
-	for (long unsigned int i = 0; i < this->value.size(); ++i) {
-		std::cout << this->value[i] << std::endl;
 	}
 }

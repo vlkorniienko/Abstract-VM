@@ -22,7 +22,6 @@ void Reader::readFromFile(const std::string argument1) {
 }
 
 void Reader::readFromStdin() {
-
 	for (std::string line; std::getline(std::cin, line);) {
 		if (line == ";;") {
 			break;
