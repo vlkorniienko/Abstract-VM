@@ -68,6 +68,8 @@
         "__hash_table": "cpp",
         "__node_handle": "cpp",
         "complex": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "iomanip": "cpp",
+        "hashtable": "cpp"
     }
 }

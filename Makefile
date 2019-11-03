@@ -1,5 +1,5 @@
 CC=g++
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -std=c++11
 SRCS=main.cpp Lexer.cpp Reader.cpp MyException.cpp
 OFILES = $(SRCS:.cpp=.o)
 

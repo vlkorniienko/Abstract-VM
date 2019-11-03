@@ -2,6 +2,17 @@
 
 Lexer::Lexer() { this->exit_check = false; }
 
+bool Lexer::getExit() const {
+	return this->exit_check;
+}
+
+std::vector<std::string> Lexer::getOperands() const {
+	return this->operands;
+}
+std::vector<std::string> Lexer::getInstructions() const {
+	return this->instructions;
+}
+
 void Lexer::RegularResult(const std::vector<std::string> & lines) {
 	std::stringstream errorMessage;
 
@@ -31,14 +42,16 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 			else if (lines[i].length() > 2 && lines[i].at(0) == ';' && lines[i].at(1) != ';')
 				continue;
 			else if (std::regex_match(lines[i], exit_c)) {
-				this->value.push_back(lines[i]);
+				this->instructions.push_back(lines[i]);
 				this->exit_check = true;
 			}
 			else if (std::regex_match(lines[i], pop_c) || std::regex_match(lines[i], dump_c) || std::regex_match(lines[i], add_c) || std::regex_match(lines[i], sub_c) || 
-				std::regex_match(lines[i], mul_c) || std::regex_match(lines[i], div_c) || std::regex_match(lines[i], mod_c) || std::regex_match(lines[i], print_c) || 
-				std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db) ||
+				std::regex_match(lines[i], mul_c) || std::regex_match(lines[i], div_c) || std::regex_match(lines[i], mod_c) || std::regex_match(lines[i], print_c)) {
+					this->instructions.push_back(lines[i]);
+			}
+			else if (std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db) ||
 				std::regex_match(lines[i], assert_fl) || std::regex_match(lines[i], assert_db)) {
-					this->value.push_back(lines[i]);
+					this->operands.push_back(lines[i]);
 			}
 			else {
 				std::cout << "An unknown instruction is on line" << i + 1 << " [" << lines[i] << "]\n" << "Machine continue working" << std::endl;	
@@ -50,7 +63,7 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
     	std::cout << e.what() << std::endl;
 	}
 	try {
-		if (this->exit_check == false) {
+		if (getExit() == false) {
 			throw MyException("Error: there is no exit command[machine stop its work]");
 		}
 	} catch (MyException& e) {

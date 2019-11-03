@@ -2,11 +2,13 @@
 #include <string>
 #include "Lexer.hpp"
 #include "Reader.hpp"
+#include "Parser.hpp"
 
 int		main(int argc, char **argv)
 {
 	Reader 	reader;
 	Lexer 	lexer;
+	Parser 	parser;
 
 	try {
 		if (argc == 2)
@@ -21,6 +23,7 @@ int		main(int argc, char **argv)
 		return (-1);
 	}
 	lexer.RegularResult(reader.getCommands());
+	parser.parseCommands(&lexer);
 	
 	return (0);
 }

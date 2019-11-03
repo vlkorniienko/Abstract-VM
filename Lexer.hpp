@@ -11,11 +11,15 @@ class Lexer {
 
 public:
 	Lexer();
-	void RegularResult(const std::vector<std::string> & lines);
-	std::vector<std::string> getValue() const;
 	~Lexer() = default;
+
+	void RegularResult(const std::vector<std::string> & lines);
+	std::vector<std::string> getOperands() const;
+	std::vector<std::string> getInstructions() const;
+	bool getExit() const;
 	
 private:
-	std::vector<std::string> value;
+	std::vector<std::string> operands;
+	std::vector<std::string> instructions;
 	bool exit_check;
 };
