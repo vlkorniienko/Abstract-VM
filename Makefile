@@ -1,6 +1,6 @@
 CC=g++
 FLAGS=-Wall -Wextra -Werror -std=c++11
-SRCS=main.cpp Lexer.cpp Reader.cpp MyException.cpp
+SRCS=main.cpp Lexer.cpp Reader.cpp MyException.cpp Parser.cpp
 OFILES = $(SRCS:.cpp=.o)
 
 NAME=avm

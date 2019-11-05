@@ -14,7 +14,7 @@ class Parser {
     Parser() = default;
     ~Parser() = default;
 
-    void parseCommands(const Lexer &lexer);
+    void parseOperands(const Lexer &lexer);
 
     private:
     std::vector<std::string> instructions;
