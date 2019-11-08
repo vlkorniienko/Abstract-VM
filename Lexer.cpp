@@ -35,7 +35,6 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 		std::regex assert_db("(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
 		for (long unsigned int i = 0; i < lines.size() && this->exit_check != true; i++)
 		{
-			std::cout << "we are inside for " << i + 1 << std::endl;
 			oneLine.isSimpleCommand = true;			
 			if (lines[i].length() == 0 || lines[i] == ";")
 				continue;
@@ -83,17 +82,17 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 				std::cout << "An unknown instruction is on line" << i + 1 << " [" << lines[i] << "]\n" << "Machine continue working" << std::endl;	
 			}
 		}
-	} catch (std::regex_error& e) {
-		std::cout << "regex_error caught: " << e.what() << '\n';
+	} catch (RegexException& e) {
+		std::cout << e.what() << '\n';
 	} catch (std::exception& e) {
     	std::cout << e.what() << std::endl;
 	}
 	try {
 		if (getExit() == false) {
-			throw MyException("Error: there is no exit command[machine stop its work]");
+			throw NoExitException();
 		}
-	} catch (MyException& e) {
-		std::cout << e.getMessage() << std::endl;
+	} catch (NoExitException& e) {
+		std::cout << e.what() << std::endl;
 		exit(-1);
 	}
 }

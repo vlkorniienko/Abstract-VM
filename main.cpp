@@ -16,7 +16,7 @@ int		main(int argc, char **argv)
 		else if (argc == 1)
 			reader.readFromStdin();
 		else {
-			throw MyException("Usage error: too many arguments\n./avm [filename]");
+			throw MyException();
 		}
 	} catch(MyException &e) {
 		std::cout << e.getMessage() << std::endl;
