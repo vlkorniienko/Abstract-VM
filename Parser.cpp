@@ -1,14 +1,13 @@
 #include "Parser.hpp"
 
-void Parser::parseOperands(const Lexer &lexer) {
-	std::vector<std::string> operands = lexer.getOperands();
+void Parser::parseOperands(std::vector<Line> &line) {
+    
 
-	try {
-		for (long unsigned int i = 0; i < operands.size(); i++) {
-			cout << operands[i] << endl;
-		}
+    for(long int i = 0; i < line.size(); i++) {
 
-	} catch(std::regex_error& e) {
-		cout << "regex_error caught: " << e.what() << endl;;
-	}
+    }
+}
+
+void Parser::parseLines(std::vector<Line> &line) {
+	parseLines(line);
 }

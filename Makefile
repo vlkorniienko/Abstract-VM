@@ -14,4 +14,9 @@ $(NAME): $(OFILES)
 	$(CC) -c $< -o $@ $(FLAGS) -I. 
 
 clean:
-	rm -r $(OFILES) $(NAME)
+	rm -r $(OFILES)
+
+fclean: clean
+	@rm -f $(NAME)
+
+re: fclean all

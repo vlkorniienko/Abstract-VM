@@ -2,18 +2,12 @@
 
 #include <string>
 
-typedef enum {
-    Int8,
-    Int16,
-    Int32,
-    Float,
-    Double,
+typedef enum { Int8, Int16, Int32, Float, Double,
 } eOperandType;
 
 class IOperand {
-
+	
 public:
-
 	virtual int getPrecision(void) const = 0; // Precision of the type of the instance
 	virtual eOperandType getType(void) const = 0; // Type of the instance
 

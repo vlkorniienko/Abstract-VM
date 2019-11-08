@@ -23,7 +23,7 @@ int		main(int argc, char **argv)
 		return (-1);
 	}
 	lexer.RegularResult(reader.getCommands());
-	parser.parseOperands(lexer);
+	//parser.parseOperands(lexer);
 	
 	return (0);
 }

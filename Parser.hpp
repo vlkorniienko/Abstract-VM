@@ -6,6 +6,8 @@
 #include <iostream>
 #include "MyException.hpp"
 #include "Lexer.hpp"
+#include "Line.hpp"
+
 using std::cout;
 using std::endl;
 
@@ -14,7 +16,8 @@ class Parser {
     Parser() = default;
     ~Parser() = default;
 
-    void parseOperands(const Lexer &lexer);
+    void parseLines(std::vector<Line> &line);
+    void parseOperands(std::vector<Line> &line);
 
     private:
     std::vector<std::string> instructions;

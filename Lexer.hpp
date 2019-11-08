@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include "MyException.hpp"
+#include "Line.hpp"
 
 class Lexer {
 
@@ -14,12 +15,10 @@ public:
 	~Lexer() = default;
 
 	void RegularResult(const std::vector<std::string> & lines);
-	std::vector<std::string> getOperands() const;
-	std::vector<std::string> getInstructions() const;
+	std::vector<Line> getLineVector() const;
 	bool getExit() const;
 	
 private:
-	std::vector<std::string> operands;
-	std::vector<std::string> instructions;
-	bool exit_check;
+	std::vector<Line> 	lineVector;
+	bool 				exit_check;
 };

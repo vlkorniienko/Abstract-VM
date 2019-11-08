@@ -6,15 +6,13 @@ bool Lexer::getExit() const {
 	return this->exit_check;
 }
 
-std::vector<std::string> Lexer::getOperands() const {
-	return this->operands;
-}
-std::vector<std::string> Lexer::getInstructions() const {
-	return this->instructions;
+std::vector<Line> Lexer::getLineVector() const {
+	return this->lineVector;
 }
 
 void Lexer::RegularResult(const std::vector<std::string> & lines) {
-	std::stringstream errorMessage;
+	std::stringstream 	errorMessage;
+	Line				oneLine;
 
 	try {
 		// standart commands
@@ -35,25 +33,53 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 		std::regex assert_dec("(^assert\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)$)|(^assert\\s(int32|int16|int8)\\(-?[[:digit:]]+\\)\\s*;.*$)");
 		std::regex assert_fl("(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
 		std::regex assert_db("(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
-		for (long unsigned int i = 0; i < lines.size(); i++)
+		for (long unsigned int i = 0; i < lines.size() && this->exit_check != true; i++)
 		{
+			std::cout << "we are inside for " << i + 1 << std::endl;
+			oneLine.isSimpleCommand = true;			
 			if (lines[i].length() == 0 || lines[i] == ";")
 				continue;
 			else if (lines[i].length() > 2 && lines[i].at(0) == ';' && lines[i].at(1) != ';')
 				continue;
 			else if (std::regex_match(lines[i], exit_c)) {
-				this->instructions.push_back(lines[i]);
+				oneLine.commands = exit_i;
+				this->lineVector.push_back(oneLine);
 				this->exit_check = true;
-			}
-			else if (std::regex_match(lines[i], pop_c) || std::regex_match(lines[i], dump_c) || std::regex_match(lines[i], add_c) || std::regex_match(lines[i], sub_c) || 
-				std::regex_match(lines[i], mul_c) || std::regex_match(lines[i], div_c) || std::regex_match(lines[i], mod_c) || std::regex_match(lines[i], print_c)) {
-					this->instructions.push_back(lines[i]);
-			}
-			else if (std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db) ||
-				std::regex_match(lines[i], assert_fl) || std::regex_match(lines[i], assert_db)) {
-					this->operands.push_back(lines[i]);
-			}
-			else {
+			} else if (std::regex_match(lines[i], pop_c)) {
+				oneLine.commands = pop_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], dump_c)) {
+				oneLine.commands = dump_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], add_c)) {
+				oneLine.commands = add_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], sub_c)) {
+				oneLine.commands = sub_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], mul_c)) {
+				oneLine.commands = mul_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], div_c)) {
+				oneLine.commands = div_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], mod_c)) {
+				oneLine.commands = mod_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], print_c)) {
+				oneLine.commands = print_i;
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], push_dec) || std::regex_match(lines[i], push_fl) || std::regex_match(lines[i], push_db)) {
+				oneLine.isSimpleCommand = false;
+				oneLine.commands = push_i;
+				oneLine.value = lines[i];
+				this->lineVector.push_back(oneLine);
+			} else if (std::regex_match(lines[i], assert_dec) || std::regex_match(lines[i], assert_fl) || std::regex_match(lines[i], assert_db)) {
+				oneLine.isSimpleCommand = false;
+				oneLine.commands = assert_i;
+				oneLine.value = lines[i];
+				this->lineVector.push_back(oneLine);
+			} else {
 				std::cout << "An unknown instruction is on line" << i + 1 << " [" << lines[i] << "]\n" << "Machine continue working" << std::endl;	
 			}
 		}
