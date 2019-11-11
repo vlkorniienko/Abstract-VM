@@ -15,7 +15,7 @@ void Parser::parseOperands(std::vector<Line> &line) {
         std::regex assert_fl("(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sfloat\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
         std::regex assert_db("(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)$)|(^assert\\sdouble\\(-?[[:digit:]]+\\.[[:digit:]]+\\)\\s*;.*$)");
 
-        for(long int i = 0; i < line.size(); i++) {
+        for(unsigned long int i = 0; i < line.size(); i++) {
             if (!line[i].isSimpleCommand) {
                 if (std::regex_match(line[i].value, push_int8) || std::regex_match(line[i].value, assert_int8)) {
                     line[i].operandType = Int8;
@@ -35,6 +35,6 @@ void Parser::parseOperands(std::vector<Line> &line) {
     }
 }
 
-void Parser::parseLines(std::vector<Line> &line) {
-	parseLines(line);
-}
+// void Parser::parseLines(std::vector<Line> &line) {
+// 	parseLines(line);
+// }

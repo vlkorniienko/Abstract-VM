@@ -95,4 +95,8 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 		std::cout << e.what() << std::endl;
 		exit(-1);
 	}
+
+	for (long unsigned int i = 0; i < this->lineVector.size(); i++) {
+			std::cout << this->lineVector[i].commands << std::endl;
+	}
 }

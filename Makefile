@@ -1,6 +1,6 @@
 CC=g++
 FLAGS=-Wall -Wextra -Werror -std=c++11
-SRCS=main.cpp Lexer.cpp Reader.cpp MyException.cpp Parser.cpp
+SRCS=main.cpp Lexer.cpp Reader.cpp Parser.cpp
 OFILES = $(SRCS:.cpp=.o)
 
 NAME=avm
@@ -17,6 +17,6 @@ clean:
 	rm -r $(OFILES)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all

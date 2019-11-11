@@ -16,11 +16,11 @@ int		main(int argc, char **argv)
 		else if (argc == 1)
 			reader.readFromStdin();
 		else {
-			throw MyException();
+			throw TooManyArguments();
 		}
-	} catch(MyException &e) {
-		std::cout << e.getMessage() << std::endl;
-		return (-1);
+	} catch(TooManyArguments &e) {
+		std::cout << e.what() << std::endl;
+		return -1;
 	}
 	lexer.RegularResult(reader.getCommands());
 	//parser.parseOperands(lexer);
