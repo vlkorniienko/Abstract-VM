@@ -83,9 +83,9 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 			}
 		}
 	} catch (RegexException& e) {
-		std::cout << e.what() << '\n';
+		std::cout << e.what() << std::endl;
 	} catch (std::exception& e) {
-    	std::cout << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 	try {
 		if (getExit() == false) {
@@ -96,7 +96,4 @@ void Lexer::RegularResult(const std::vector<std::string> & lines) {
 		exit(-1);
 	}
 
-	for (long unsigned int i = 0; i < this->lineVector.size(); i++) {
-			std::cout << this->lineVector[i].commands << std::endl;
-	}
 }

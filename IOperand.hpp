@@ -1,9 +1,7 @@
 #pragma once
 
+#include "Line.hpp"
 #include <string>
-
-typedef enum { Int8, Int16, Int32, Float, Double,
-} eOperandType;
 
 class IOperand {
 	
