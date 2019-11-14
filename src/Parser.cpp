@@ -66,6 +66,10 @@ void Parser::extractValue(std::vector<Line> &line) const {
 				if (line[counter].value[temp] == ')') { 
 					break ;
 				}
+				// if (!isdigit(line[counter].value[temp]) && line[counter].value[temp] != '.') {
+				// 	std::cout << "Error: value is not correct on line " << counter + 1 << std::endl;
+				// 	break;
+				// }
 				j++;
 			}
 			line[counter].value = line[counter].value.substr(i + 1, j);

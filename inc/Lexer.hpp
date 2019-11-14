@@ -19,6 +19,7 @@ public:
 	bool getExit() const;
 	
 private:
-	std::vector<Line> 	lineVector;
+	std::vector<Line>	lineVector;
 	bool 				exit_check;
+	void				findErrInValue(int counter);
 };
