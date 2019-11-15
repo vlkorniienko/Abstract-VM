@@ -1,4 +1,6 @@
-#pragma once 
+#pragma once
+
+#include <string>
 
 typedef enum { Int8, Int16, Int32, Float, Double,
 } eOperandType;

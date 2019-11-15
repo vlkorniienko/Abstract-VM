@@ -1,6 +1,6 @@
 CC=g++
 FLAGS=-Wall -Wextra -Werror -std=c++11 #-fsanitize=address
-SRCS=main.cpp Lexer.cpp Reader.cpp Parser.cpp
+SRCS=main.cpp Lexer.cpp Reader.cpp Parser.cpp Factory.cpp
 OFILES = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
 SRC_DIR = ./src/
