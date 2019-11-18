@@ -56,7 +56,7 @@ std::string interpreter(::instructions type) {
 	}
 }
 
-std::string interpreter2(::eOperandType e) {
+std::string stringRepresentation(::eOperandType e) {
 	if (e == Int8) {
 		return "int8";
 	} else if (e == Int16) {

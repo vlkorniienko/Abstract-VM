@@ -11,29 +11,29 @@ Factory::Factory() {
 
 Factory::~Factory() { }
 
-Operand const * Factory::createOperand(eOperandType type, std::string const & value) const {
-	Operand const * (Factory::*ptrToMember)(std::string const & value) const = NULL;
+IOperand const * Factory::createOperand(eOperandType type, std::string const & value) const {
+	IOperand const * (Factory::*ptrToMember)(std::string const & value) const = NULL;
 	ptrToMember = this->factory.at(type);
 
 	return (*this.*ptrToMember)(value);
 }
 
-Operand const * Factory::createInt8(std::string const & value) const {
-	return new Operand(value);
+IOperand const * Factory::createInt8(std::string const & value) const {
+	return new IOperand(value, Int8, stringRepresentation(Int8));
 }
 
-Operand const * Factory::createInt16(std::string const & value) const {
-	return new Operand(value);
+IOperand const * Factory::createInt16(std::string const & value) const {
+	return new IOperand(value, Int16, stringRepresentation(Int16));
 }
 
-Operand const * Factory::createInt32(std::string const & value) const {
-	return new Operand(value);
+IOperand const * Factory::createInt32(std::string const & value) const {
+	return new IOperand(value, Int32, stringRepresentation(Int32));
 }
 
-Operand const * Factory::createFloat(std::string const & value) const {
-	return new Operand(value);
+IOperand const * Factory::createFloat(std::string const & value) const {
+	return new IOperand(value, Float, stringRepresentation(Float));
 }
 
-Operand const * Factory::createDouble(std::string const & value) const {
-	return new Operand(value);
+IOperand const * Factory::createDouble(std::string const & value) const {
+	return new IOperand(value, Double, stringRepresentation(Double));
 }
