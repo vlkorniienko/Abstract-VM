@@ -25,48 +25,7 @@ int		main(int argc, char **argv)
 	}
 	lexer.RegularResult(reader.getCommands());
 	std::vector<Line> lines = lexer.getLineVector();
-	parser.parseLines(lines);
+	parser.parseOperands(lines);
 	
 	return (0);
 }
-
-std::string interpreter(::instructions type) {
-	if (type == pop_i) {
-		return "pop";
-	} else if (type == dump_i) {
-		return "dump";
-	} else if (type == add_i) {
-		return "add";
-	} else if (type == sub_i) {
-		return "sub";
-	} else if (type == mul_i) {
-		return "mul";
-	} else if (type == div_i) {
-		return "div";
-	} else if (type == mod_i) {
-		return "mod";
-	} else if (type == print_i) {
-		return "print";
-	} else if (type == exit_i) {
-		return "exit";
-	} else if (type == push_i) {
-		return "push";
-	} else {
-		return "assert";
-	}
-}
-
-std::string stringRepresentation(::eOperandType e) {
-	if (e == Int8) {
-		return "int8";
-	} else if (e == Int16) {
-		return "int16";
-	} else if (e == Int32) {
-		return "int32";
-	} else if (e == Float) {
-		return "float";
-	} else {
-		return "double";
-	}
-}
-

@@ -1,12 +1,12 @@
 ;;
-push int32(42);fgfdg
-push int32(33)fgf
-add      ;fgfgdgdg
+push int32(42)
+push int32(33)
+add
 push float(44.55)
 mul
 push double(42.42)
-push int32(42)
+push int8(300)
 dump
 pop
-assert double(4f22.42)
+assert double(443434343.42)
 exit

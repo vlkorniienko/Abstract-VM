@@ -30,25 +30,22 @@ void Parser::parseOperands(std::vector<Line> &line) {
 				}
 			}
 		}
-	} catch(RegexException& e) {
+	} catch (RegexException& e) {
 		std::cout << e.what() << std::endl;
 	} catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
+	extractValue(line);
 }
 
 void Parser::parseLines(std::vector<Line> &line) {
-	parseOperands(line);
-	extractValue(line);
-
 	for (long unsigned int i = 0; i < line.size(); i++) {
-		std::cout << interpreter(line[i].commands) << " ";
+		std::cout << commandToString(line[i].commands) << " ";
 		if (!line[i].isSimpleCommand) {
-			std::cout << interpreter2(line[i].operandType) << "(" << line[i].value << ")";
+			std::cout << stringRepresentation(line[i].operandType) << "(" << line[i].value << ")";
 		}
 		std::cout << "\n";
 	}
-	
 }
 
 void Parser::extractValue(std::vector<Line> &line) const {
@@ -66,21 +63,100 @@ void Parser::extractValue(std::vector<Line> &line) const {
 				if (line[counter].value[temp] == ')') { 
 					break ;
 				}
-				// if (!isdigit(line[counter].value[temp]) && line[counter].value[temp] != '.') {
-				// 	std::cout << "Error: value is not correct on line " << counter + 1 << std::endl;
-				// 	break;
-				// }
 				j++;
 			}
 			line[counter].value = line[counter].value.substr(i + 1, j);
 		}
 	}
+	for (long unsigned int counter = 0; counter < line.size(); counter++) {
+		if (!line[counter].isSimpleCommand) {
+			if (!validateSize(line[counter].value, line[counter].operandType)) {
+				std::cout << "Error: value overflow in class " << stringRepresentation(line[counter].operandType) << "  value (" << line[counter].value << ")" << std::endl;
+				line.erase(line.begin() + counter);
+			}
+		}
+	}
 }
 
+bool Parser::validateSize(std::string line, eOperandType type) const {
+	long long int result;
+	bool boolresult = true;
+	std::string::size_type biggestString;
 
+	try {
+		for (long unsigned int counter = 0; counter < line.size(); counter++) {
+			if (type == Int8) {
+				result = std::stol(line);
+				if ((result < -128) || (result > 127))
+					throw OverflowException(line);
+				} else if (type == Int16) {
+					result = std::stol(line);
+					if ((result < -327683) || (result > 32767))
+						throw OverflowException(line);
+				} else if (type == Int32) {
+					result = std::stol(line);
+					if ((result < -2147483648) || (result > 2147483647))
+						throw OverflowException(line);
+				} else if (type == Float) {
+					try {
+						std::stod(line, &biggestString);
+					} catch (std::exception &e) {
+						boolresult = false;
+						std::cout << "Error: overflow exception on value (" << line << ")" <<std::endl;
+					}
+				} else if (type == Double) {
+					try {
+						std::stod(line, &biggestString);
+					} catch (std::exception &e) {
+						boolresult = false;
+						std::cout << "Error: overflow exception on value (" << line << ")" <<std::endl;
+					}
+				}
+			}
+		} catch (OverflowException const &e) {
+			boolresult = false;
+			std::cout << e.what() << std::endl;
+		}
+	
+	return boolresult;
+}
 
+std::string Parser::commandToString(::instructions type) const {
+	if (type == pop_i) {
+		return "pop";
+	} else if (type == dump_i) {
+		return "dump";
+	} else if (type == add_i) {
+		return "add";
+	} else if (type == sub_i) {
+		return "sub";
+	} else if (type == mul_i) {
+		return "mul";
+	} else if (type == div_i) {
+		return "div";
+	} else if (type == mod_i) {
+		return "mod";
+	} else if (type == print_i) {
+		return "print";
+	} else if (type == exit_i) {
+		return "exit";
+	} else if (type == push_i) {
+		return "push";
+	} else {
+		return "assert";
+	}
+}
 
-
-
-// typedef enum { pop_i, dump_i, add_i, sub_i, mul_i, div_i, mod_i, print_i, exit_i, push_i, assert_i,
-// } instructions;
+std::string Parser::stringRepresentation(::eOperandType e) const {
+	if (e == Int8) {
+		return "int8";
+	} else if (e == Int16) {
+		return "int16";
+	} else if (e == Int32) {
+		return "int32";
+	} else if (e == Float) {
+		return "float";
+	} else {
+		return "double";
+	}
+}

@@ -24,3 +24,29 @@ class TooManyArguments : public std::exception {
 			return ("Error: usage ./avm [filename] ");
 	}
 };
+
+class UnderflowException : std::underflow_error {
+
+public:
+	UnderflowException(const std::string &s) : underflow_error(s), exc(s) {}
+
+	virtual const char *what() const throw() override {
+		return exc.c_str();
+	}
+
+private:
+	std::string exc;
+};
+
+class OverflowException : std::overflow_error {
+
+public:
+	OverflowException(const std::string &s) : overflow_error(s), exc(s) {}
+
+	virtual const char *what() const throw() override {
+		return exc.c_str();
+	}
+
+private:
+	std::string exc;
+};

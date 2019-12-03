@@ -14,12 +14,13 @@ public:
 	Lexer();
 	~Lexer() = default;
 
-	void RegularResult(const std::vector<std::string> & lines);
-	std::vector<Line> getLineVector() const;
-	bool getExit() const;
+	void				RegularResult(const std::vector<std::string> & lines);
+	std::vector<Line>	getLineVector() const;
+	bool				getExit() const;
+	int					getDelLines() const;
 	
 private:
 	std::vector<Line>	lineVector;
-	bool 				exit_check;
-	void				findErrInValue(int counter);
+	bool				exit_check;
+	bool				findErrInValue(std::string line);
 };

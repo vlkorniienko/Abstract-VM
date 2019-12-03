@@ -1,5 +1,4 @@
 #include "Factory.hpp"
-#include "Operand.hpp"
 
 Factory::Factory() {
 	factory.push_back(&Factory::createInt8);
@@ -19,21 +18,21 @@ IOperand const * Factory::createOperand(eOperandType type, std::string const & v
 }
 
 IOperand const * Factory::createInt8(std::string const & value) const {
-	return new IOperand(value, Int8, stringRepresentation(Int8));
+	return new Operand(value, Int8);
 }
 
 IOperand const * Factory::createInt16(std::string const & value) const {
-	return new IOperand(value, Int16, stringRepresentation(Int16));
+	return new Operand(value, Int16);
 }
 
 IOperand const * Factory::createInt32(std::string const & value) const {
-	return new IOperand(value, Int32, stringRepresentation(Int32));
+	return new Operand(value, Int32);
 }
 
 IOperand const * Factory::createFloat(std::string const & value) const {
-	return new IOperand(value, Float, stringRepresentation(Float));
+	return new Operand(value, Float);
 }
 
 IOperand const * Factory::createDouble(std::string const & value) const {
-	return new IOperand(value, Double, stringRepresentation(Double));
+	return new Operand(value, Double);
 }
