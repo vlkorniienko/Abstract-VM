@@ -72,38 +72,34 @@ bool Parser::validateSize(std::string line, eOperandType type) const {
 	long long int result;
 	bool boolresult = true;
 	std::string::size_type biggestString;
-	//std::cout << "\ntype is " << Interpreter().stringRepresentation(type) << std::endl;
 
 	try {
-		for (long unsigned int counter = 0; counter < line.size(); counter++) {
-			if (type == Int8) {
+		if (type == Int8) {
+			result = std::stol(line);
+			if ((result < -128) || (result > 127))
+				throw OverflowException(line);
+			} else if (type == Int16) {
 				result = std::stol(line);
-				if ((result < -128) || (result > 127))
+				if ((result < -327683) || (result > 32767))
 					throw OverflowException(line);
-				} else if (type == Int16) {
-					result = std::stol(line);
-					if ((result < -327683) || (result > 32767))
-						throw OverflowException(line);
-				} else if (type == Int32) {
-					result = std::stol(line);
-					std::cout << "result is " << result << std::endl;
-					if ((result < -2147483648) || (result > 2147483647)) {
-						throw OverflowException(line);
-					}
-				} else if (type == Float) {
-					try {
-						std::stod(line, &biggestString);
-					} catch (std::exception &e) {
-						boolresult = false;
-						std::cout << "Error: overflow exception on value (" << line << ")" <<std::endl;
-					}
-				} else if (type == Double) {
-					try {
-						std::stod(line, &biggestString);
-					} catch (std::exception &e) {
-						boolresult = false;
-						std::cout << "Error: overflow exception on value (" << line << ")" <<std::endl;
-					}
+			} else if (type == Int32) {
+				result = std::stol(line);
+				if ((result < -2147483647) || (result > 2147483647)) {
+					throw OverflowException(line);
+				}
+			} else if (type == Float) {
+				try {
+					std::stod(line, &biggestString);
+				} catch (std::exception &e) {
+					boolresult = false;
+					std::cout << "Error: overflow exception on value (" << line << ")" <<std::endl;
+				}
+			} else if (type == Double) {
+				try {
+					std::stod(line, &biggestString);
+				} catch (std::exception &e) {
+					boolresult = false;
+					std::cout << "Error: overflow exception on value (" << line << ")" <<std::endl;
 				}
 			}
 		} catch (OverflowException const &e) {
@@ -113,7 +109,6 @@ bool Parser::validateSize(std::string line, eOperandType type) const {
 			boolresult = false;
 			std::cout << e.what() << std::endl;
 		}
-	
 	return boolresult;
 }
 

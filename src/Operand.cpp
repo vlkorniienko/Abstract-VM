@@ -35,18 +35,15 @@ IOperand const * Operand::operator+(IOperand const & rhs) const {
 	eOperandType newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 
 	if (newType <= 2) {
-		if (Parser().validateSize(std::to_string(std::stoi(this->toString()) + std::stoi(rhs.toString())), newType)) {
-			std::cout << "INSODE +++ operator" << std::endl;
+		if (Parser().validateSize(std::to_string(std::stoll(this->toString()) + std::stoll(rhs.toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stoi(this->toString()) + std::stoi(rhs.toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	} else {
-		if (Parser().validateSize(std::to_string(std::stod(this->toString()) + std::stod(rhs.toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stod(this->toString()) + std::stod(rhs.toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stod(this->toString()) + std::stod(rhs.toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	}
 }
 
@@ -54,17 +51,15 @@ IOperand const * Operand::operator-(IOperand const & rhs) const {
 	eOperandType newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 
 	if (newType <= 2) {
-		if (Parser().validateSize(std::to_string(std::stoi(rhs.toString()) - std::stoi(this->toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stoi(rhs.toString()) - std::stoi(this->toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stoi(rhs.toString()) - std::stoi(this->toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	} else {
-		if (Parser().validateSize(std::to_string(std::stod(rhs.toString()) - std::stod(this->toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stod(rhs.toString()) - std::stod(this->toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stod(rhs.toString()) - std::stod(this->toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	}
 }
 
@@ -72,17 +67,15 @@ IOperand const * Operand::operator*(IOperand const & rhs) const {
 	eOperandType newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 
 	if (newType <= 2) {
-		if (Parser().validateSize(std::to_string(std::stoi(this->toString()) * std::stoi(rhs.toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stoi(this->toString()) * std::stoi(rhs.toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stoi(this->toString()) * std::stoi(rhs.toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	} else {
-		if (Parser().validateSize(std::to_string(std::stod(this->toString()) * std::stod(rhs.toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stod(this->toString()) * std::stod(rhs.toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stod(this->toString()) * std::stod(rhs.toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	}
 }
 
@@ -90,17 +83,15 @@ IOperand const * Operand::operator/(IOperand const & rhs) const {
 	eOperandType newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 
 	if (newType <= 2) {
-		if (Parser().validateSize(std::to_string(std::stoi(rhs.toString()) / std::stoi(this->toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stoi(rhs.toString()) / std::stoi(this->toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stoi(rhs.toString()) / std::stoi(this->toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	} else {
-		if (Parser().validateSize(std::to_string(std::stod(rhs.toString()) / std::stod(this->toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stod(rhs.toString()) / std::stod(this->toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stod(rhs.toString()) / std::stod(this->toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	}
 }
 
@@ -108,16 +99,14 @@ IOperand const * Operand::operator%(IOperand const & rhs) const {
 	eOperandType newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 
 	if (newType <= 2) {
-		if (Parser().validateSize(std::to_string(std::stoi(rhs.toString()) % std::stoi(this->toString())), newType)) {
+		if (Parser().validateSize(std::to_string(std::stoi(rhs.toString()) % std::stoi(this->toString())), newType))
 			return Factory().createOperand(newType, std::to_string(std::stoi(rhs.toString()) % std::stoi(this->toString())));
-		} else {
+		else
 			return nullptr;
-		}
 	} else {
-		if (Parser().validateSize(std::to_string(fmod(std::stod(rhs.toString()), std::stod(this->toString()))), newType)) {
+		if (Parser().validateSize(std::to_string(fmod(std::stod(rhs.toString()), std::stod(this->toString()))), newType))
 			return Factory().createOperand(newType, std::to_string(fmod(std::stod(rhs.toString()), std::stod(this->toString()))));
-		} else {
+		else
 			return nullptr;
-		}
 	}
 }

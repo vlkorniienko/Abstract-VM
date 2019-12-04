@@ -97,9 +97,14 @@ void Interpreter::addStack() {
 		stack.pop_back();
 		const IOperand* operand2 = stack.back();
 		stack.pop_back();
-		const IOperand *result = *operand1 + *operand2;
+		const IOperand* result = *operand1 + *operand2;
+		if (result == nullptr)
+			throw NewOperandOverflowException();
 		stack.push_back(result);
 	} catch (EmptyStackException &e) {
+		std::cout << e.what() << std::endl;
+		exit(0);
+	} catch (NewOperandOverflowException &e) {
 		std::cout << e.what() << std::endl;
 		exit(0);
 	}
