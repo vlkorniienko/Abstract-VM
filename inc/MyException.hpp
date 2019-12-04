@@ -50,3 +50,10 @@ public:
 private:
 	std::string exc;
 };
+
+class EmptyStackException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: empty stack!!");
+	}
+};

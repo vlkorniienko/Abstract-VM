@@ -38,16 +38,6 @@ void Parser::parseOperands(std::vector<Line> &line) {
 	extractValue(line);
 }
 
-void Parser::parseLines(std::vector<Line> &line) {
-	for (long unsigned int i = 0; i < line.size(); i++) {
-		std::cout << commandToString(line[i].commands) << " ";
-		if (!line[i].isSimpleCommand) {
-			std::cout << stringRepresentation(line[i].operandType) << "(" << line[i].value << ")";
-		}
-		std::cout << "\n";
-	}
-}
-
 void Parser::extractValue(std::vector<Line> &line) const {
 	for (long unsigned int counter = 0; counter < line.size(); counter++) {
 		if (!line[counter].isSimpleCommand) {
@@ -71,7 +61,7 @@ void Parser::extractValue(std::vector<Line> &line) const {
 	for (long unsigned int counter = 0; counter < line.size(); counter++) {
 		if (!line[counter].isSimpleCommand) {
 			if (!validateSize(line[counter].value, line[counter].operandType)) {
-				std::cout << "Error: value overflow in class " << stringRepresentation(line[counter].operandType) << "  value (" << line[counter].value << ")" << std::endl;
+				std::cout << "Error: value overflow in class " << Interpreter().stringRepresentation(line[counter].operandType) << "  value (" << line[counter].value << ")" << std::endl;
 				line.erase(line.begin() + counter);
 			}
 		}
@@ -121,42 +111,3 @@ bool Parser::validateSize(std::string line, eOperandType type) const {
 	return boolresult;
 }
 
-std::string Parser::commandToString(::instructions type) const {
-	if (type == pop_i) {
-		return "pop";
-	} else if (type == dump_i) {
-		return "dump";
-	} else if (type == add_i) {
-		return "add";
-	} else if (type == sub_i) {
-		return "sub";
-	} else if (type == mul_i) {
-		return "mul";
-	} else if (type == div_i) {
-		return "div";
-	} else if (type == mod_i) {
-		return "mod";
-	} else if (type == print_i) {
-		return "print";
-	} else if (type == exit_i) {
-		return "exit";
-	} else if (type == push_i) {
-		return "push";
-	} else {
-		return "assert";
-	}
-}
-
-std::string Parser::stringRepresentation(::eOperandType e) const {
-	if (e == Int8) {
-		return "int8";
-	} else if (e == Int16) {
-		return "int16";
-	} else if (e == Int32) {
-		return "int32";
-	} else if (e == Float) {
-		return "float";
-	} else {
-		return "double";
-	}
-}

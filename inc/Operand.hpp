@@ -23,5 +23,4 @@ public:
 private:
 	std::string		value;
 	eOperandType	type;
-	Parser			parser;
 };
