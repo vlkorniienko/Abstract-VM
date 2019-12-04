@@ -1,12 +1,15 @@
 ;;
-push int32(42)
-push int32(33)
+;
+;54
+push int32(214748364)
+push int32(333333333)
 add
+exit
 push float(44.55)
 mul
 push double(42.42)
-push int8(300)
+push int8(30)
+print
 dump
-pop
-assert double(443434343.42)
+assert int8(69)
 exit

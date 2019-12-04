@@ -36,6 +36,7 @@ IOperand const * Operand::operator+(IOperand const & rhs) const {
 
 	if (newType <= 2) {
 		if (Parser().validateSize(std::to_string(std::stoi(this->toString()) + std::stoi(rhs.toString())), newType)) {
+			std::cout << "INSODE +++ operator" << std::endl;
 			return Factory().createOperand(newType, std::to_string(std::stoi(this->toString()) + std::stoi(rhs.toString())));
 		} else {
 			return nullptr;

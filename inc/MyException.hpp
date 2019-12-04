@@ -51,9 +51,52 @@ private:
 	std::string exc;
 };
 
+class PopEmptyStackException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: pop empty stack exception");
+	}
+};
+
+class DumpEmptyStackException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: dump empty stack exception");
+	}
+};
+
+class AssertEmptyStackException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: assert empty stack exception");
+	}
+};
+
+
+class AssertException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: value or type are not equal");
+	}
+};
+
+class PrintEmptyStackException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: print empty stack exception");
+	}
+};
+
+class ValueIsNotInt8Exception : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: value at front of stack is not int8");
+	}
+};
+
 class EmptyStackException : public std::exception {
 	public:
 		virtual const char *what() const throw() {
-			return ("Error: empty stack!!");
+			return ("Error: empty stack exception");
 	}
 };

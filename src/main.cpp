@@ -28,6 +28,7 @@ int		main(int argc, char **argv)
 	lexer.RegularResult(reader.getCommands());
 	std::vector<Line> lines = lexer.getLineVector();
 	parser.parseOperands(lines);
+	interpreter.VM(lines);
 	
 
 	// for (long unsigned int i = 0; i < lines.size(); i++) {

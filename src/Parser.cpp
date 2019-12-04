@@ -72,6 +72,7 @@ bool Parser::validateSize(std::string line, eOperandType type) const {
 	long long int result;
 	bool boolresult = true;
 	std::string::size_type biggestString;
+	//std::cout << "\ntype is " << Interpreter().stringRepresentation(type) << std::endl;
 
 	try {
 		for (long unsigned int counter = 0; counter < line.size(); counter++) {
@@ -85,8 +86,10 @@ bool Parser::validateSize(std::string line, eOperandType type) const {
 						throw OverflowException(line);
 				} else if (type == Int32) {
 					result = std::stol(line);
-					if ((result < -2147483648) || (result > 2147483647))
+					std::cout << "result is " << result << std::endl;
+					if ((result < -2147483648) || (result > 2147483647)) {
 						throw OverflowException(line);
+					}
 				} else if (type == Float) {
 					try {
 						std::stod(line, &biggestString);
@@ -104,6 +107,9 @@ bool Parser::validateSize(std::string line, eOperandType type) const {
 				}
 			}
 		} catch (OverflowException const &e) {
+			boolresult = false;
+			std::cout << e.what() << std::endl;
+		} catch (std::exception const &e) {
 			boolresult = false;
 			std::cout << e.what() << std::endl;
 		}
