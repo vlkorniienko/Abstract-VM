@@ -17,6 +17,7 @@
 
 ###   Usage
 git clone https://github.com/vlkorniienko/Abstract-VM.git
+
 cd Abstract-VM && make
 ```
 ./avm <file name>
