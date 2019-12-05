@@ -27,3 +27,6 @@ or
 ./avm 
 ``` 
 to read map from stdin
+
+#### small example of commands
+![](https://github.com/vlkorniienko/Abstract-VM/blob/master/command_example.png)
