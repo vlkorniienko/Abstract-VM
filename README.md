@@ -16,6 +16,8 @@
 |exit     |           |Terminate the execution of the current program. If this instruction does not appears while all others instruction has been processed, the execution must stop with an error.
 
 ###   Usage
+git clone https://github.com/vlkorniienko/Abstract-VM.git
+cd Abstract-VM && make
 ```
 ./avm <file name>
 ```
