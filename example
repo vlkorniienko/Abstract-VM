@@ -1,0 +1,14 @@
+push int32(42)
+push int32(33)
+add
+;poney (int32-75)
+push float(44.55)
+mul
+; 1 float 44 * 75
+push double(42.42)
+;commentaire de ouf
+push int32(42)
+dump
+pop
+assert double(42.42)
+exit

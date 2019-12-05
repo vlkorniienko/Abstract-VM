@@ -24,10 +24,6 @@ void Interpreter::VM(std::vector<Line> &line) {
 			divModOperations(line[i].commands);
 		}
     }
-
-	for (long unsigned int i = 0; i < this->stack.size(); i++) {
-		std::cout << stringRepresentation(this->stack[i]->getType()) << " (" << this->stack[i]->toString() << ")" << std::endl;
-	}
 }
 
 void Interpreter::pushStack(const eOperandType operandType, const std::string value) {
@@ -49,6 +45,9 @@ void Interpreter::dumpStack() {
 	try {
 		if (this->stack.empty())
 			throw DumpEmptyStackException();
+		for (int i = this->stack.size(); i > 0; i--) {
+			std::cout << stringRepresentation(this->stack[i - 1]->getType()) << "(" << this->stack[i - 1]->toString() << ")" << std::endl;
+		}
 	} catch (DumpEmptyStackException &e) {
 		std::cout << e.what() << std::endl;
 		exit(0);
@@ -59,7 +58,7 @@ void Interpreter::assertStack(const eOperandType operandType, const std::string 
 	try {
 		if (this->stack.empty())
 			throw AssertEmptyStackException();
-		if (operandType != this->stack.front()->getType() || value != this->stack.front()->toString()) {
+		if (operandType != this->stack.back()->getType() || value != this->stack.back()->toString()) {
 			throw AssertException();
 		}
 	} catch (AssertEmptyStackException &e) {

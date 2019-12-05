@@ -30,14 +30,5 @@ int		main(int argc, char **argv)
 	parser.parseOperands(lines);
 	interpreter.VM(lines);
 	
-
-	// for (long unsigned int i = 0; i < lines.size(); i++) {
-	// 	std::cout << interpreter.commandToString(lines[i].commands) << " ";
-	// 	if (!lines[i].isSimpleCommand) {
-	// 		std::cout << interpreter.stringRepresentation(lines[i].operandType) << "(" << lines[i].value << ")";
-	// 	}
-	// 	std::cout << "\n";
-	// }
-	
 	return (0);
 }
