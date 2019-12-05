@@ -17,13 +17,14 @@ public:
     void dumpStack();
     void assertStack(const eOperandType operandType, const std::string value);
     void printStack();
-    void addStack();
+    void addSubMulOperations(instructions command);
+    void subtractStack();
+    void divModOperations(instructions command);
 
     std::string commandToString(::instructions type) const;
 	std::string stringRepresentation(::eOperandType e) const;
     int getSize() const;
 
 private:
-    int size;
     std::vector<const IOperand*> stack;
 };

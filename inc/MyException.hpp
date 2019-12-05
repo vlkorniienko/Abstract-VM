@@ -93,3 +93,10 @@ class NewOperandOverflowException : public std::exception {
 			return ("Error: overflow on value in new operand");
 	}
 };
+
+class DivisionByZeroException : public std::exception {
+	public:
+		virtual const char *what() const throw() {
+			return ("Error: division by zero exception");
+	}
+};

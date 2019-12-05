@@ -1,8 +1,6 @@
 #include "Interpreter.hpp"
 
-Interpreter::Interpreter() {
-    this->size = 0;
-}
+Interpreter::Interpreter() {}
 
 Interpreter::~Interpreter() {}
 
@@ -20,8 +18,10 @@ void Interpreter::VM(std::vector<Line> &line) {
 			printStack();
 		} else if (line[i].commands == exit_i) {
 			break;
-		} else if (line[i].commands == add_i) {
-			addStack();
+		} else if (line[i].commands == add_i || line[i].commands == sub_i || line[i].commands == mul_i) {
+			addSubMulOperations(line[i].commands);
+		} else {
+			divModOperations(line[i].commands);
 		}
     }
 
@@ -32,7 +32,6 @@ void Interpreter::VM(std::vector<Line> &line) {
 
 void Interpreter::pushStack(const eOperandType operandType, const std::string value) {
     this->stack.push_back(Factory().createOperand(operandType, value));
-    this->size++;
 }
 
 void Interpreter::popStack() {
@@ -44,7 +43,6 @@ void Interpreter::popStack() {
 		exit(0);
 	}
 	this->stack.pop_back();
-	size--;
 }
 
 void Interpreter::dumpStack() {
@@ -89,22 +87,64 @@ void Interpreter::printStack() {
 	}
 }
 
-void Interpreter::addStack() {
+void Interpreter::addSubMulOperations(instructions command) {
 	try {
-		if (this->size < 2)
+		if (this->stack.size() < 2)
 			throw EmptyStackException();
 		const IOperand* operand1 = stack.back();
 		stack.pop_back();
 		const IOperand* operand2 = stack.back();
 		stack.pop_back();
-		const IOperand* result = *operand1 + *operand2;
-		if (result == nullptr)
-			throw NewOperandOverflowException();
-		stack.push_back(result);
+		if (command == add_i) {
+			const IOperand* result = *operand1 + *operand2;
+			if (result == nullptr)
+				throw NewOperandOverflowException();
+			stack.push_back(result);
+		} else if (command == sub_i) {
+			const IOperand* result = *operand2 - *operand1;
+			if (result == nullptr)
+				throw NewOperandOverflowException();
+			stack.push_back(result);
+		} else if (command == mul_i) {
+			const IOperand* result = *operand1 * *operand2;
+			if (result == nullptr)
+				throw NewOperandOverflowException();
+			stack.push_back(result);
+		}
 	} catch (EmptyStackException &e) {
 		std::cout << e.what() << std::endl;
 		exit(0);
 	} catch (NewOperandOverflowException &e) {
+		std::cout << e.what() << std::endl;
+		exit(0);
+	}
+}
+
+void Interpreter::divModOperations(instructions command) {
+	try {
+		if (this->stack.size() < 2)
+			throw EmptyStackException();
+		const IOperand* operand1 = stack.back();
+		if (std::stod(operand1->toString()) == 0)
+			throw DivisionByZeroException();
+		stack.pop_back();
+		const IOperand* operand2 = stack.back();
+		stack.pop_back();
+		if (command == div_i) {
+			const IOperand* result = *operand2 / *operand1;
+			if (result == nullptr)
+				throw NewOperandOverflowException();
+			stack.push_back(result);
+		} else if (command == mod_i) {
+			const IOperand* result = *operand2 % *operand1;
+			if (result == nullptr)
+				throw NewOperandOverflowException();
+			stack.push_back(result);
+		}
+	} catch (EmptyStackException &e) {
+		std::cout << e.what() << std::endl;
+		exit(0);
+	} catch (DivisionByZeroException &e) {
 		std::cout << e.what() << std::endl;
 		exit(0);
 	}
