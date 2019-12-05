@@ -74,9 +74,9 @@ void Interpreter::printStack() {
 	try {
 		if (this->stack.empty())
 			throw PrintEmptyStackException();
-		if (this->stack.front()->getType() != Int8)
+		if (this->stack.back()->getType() != Int8)
 			throw ValueIsNotInt8Exception();
-		std::cout << "print front of stack:\n" << static_cast<char>(std::stoi(this->stack.front()->toString())) << std::endl; 
+		std::cout << "print front of stack:\n" << static_cast<char>(std::stoi(this->stack.back()->toString())) << std::endl; 
 	} catch (PrintEmptyStackException &e) {
 		std::cout << e.what() << std::endl;
 		exit(0);
